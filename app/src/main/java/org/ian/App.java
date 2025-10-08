@@ -11,10 +11,6 @@ public class App {
     public static void main(String[] args) {
         log.info("running main...");
         // solve problem here
-        Solution solution = new Solution();
-
-        solution.run();
-
     }
 
 }
