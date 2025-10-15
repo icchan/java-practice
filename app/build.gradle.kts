@@ -27,6 +27,8 @@ dependencies {
     // logging
     implementation("org.slf4j:slf4j-api:2.0.13")
     implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
