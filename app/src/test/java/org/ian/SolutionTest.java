@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 
 public class SolutionTest {
     @Test void run() {
-        Solution solution = new Solution();
+        Solution solution = new Solution("id3 = \"12345\"");
 
         // check it does not throw an exception
         assertDoesNotThrow(() -> solution.run());
+
+        
     }    
 }
