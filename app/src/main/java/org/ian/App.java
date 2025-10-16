@@ -13,8 +13,6 @@ public class App {
         // solve problem here
         Solution solution = new Solution();
 
-        solution.run();
-
     }
 
 }
