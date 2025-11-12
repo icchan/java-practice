@@ -37,6 +37,18 @@ public class SolutionTest {
         Set<Car> result = data.findByCondition(new Condition(Field.COLOR, "blue"));
         assertEquals(1, result.size());
         assertEquals("002", result.iterator().next().id());
-
     }
+        @Test
+    void findItemByColorMulti() {
+        Solution data = this.sampleData1();
+
+        Set<Car> result = data.findByCondition(new Condition(Field.COLOR, "red"));
+        assertEquals(2, result.size());
+
+        while (result.iterator().hasNext()) {
+            Car car = result.iterator().next();
+            assertEquals("red", car.color());
+        }
+    }
+
 }

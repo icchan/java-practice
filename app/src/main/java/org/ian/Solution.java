@@ -42,16 +42,18 @@ public class Solution {
                 return Set.of();
             }
         } else if (condition.field() == Field.COLOR) {
-            return this.carsByColor.get(condition.value());
+            return this.carsByColor.getOrDefault(condition.value(), new HashSet<>());
         } else if (condition.field() == Field.CATEGORY) {
             Category searchCategory = Category.valueOf(condition.value());
-            return this.carsByCategory.get(searchCategory);
+            return this.carsByCategory.getOrDefault(searchCategory, new HashSet<>());
         } else {
             return Set.of();
         }
     }
 
 }
+
+// Data format here
 
 record Car(String id, String color, Category category) {
 }
@@ -63,6 +65,8 @@ enum Field {
 enum Category {
     COMPACT, SUV, COUPE, SEDAN
 }
+
+// Querying here
 
 interface QueryNode {
 }
