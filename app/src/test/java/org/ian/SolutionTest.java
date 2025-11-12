@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class SolutionTest {
 
-    private Solution sampleData1(){
+    private Solution sampleData1() {
         Solution solution = new Solution();
 
         solution.addCar(new Car("001", "red", Category.COMPACT));
@@ -21,6 +21,9 @@ public class SolutionTest {
         return solution;
     }
 
+    /**
+     * Find a car by id
+     */
     @Test
     void findItem() {
         Solution data = this.sampleData1();
@@ -28,8 +31,11 @@ public class SolutionTest {
         Set<Car> result = data.findByCondition(new Condition(Field.ID, "001"));
         assertEquals(1, result.size());
         assertEquals("red", result.iterator().next().color());
-
     }
+
+    /**
+     * Find a single car by condition
+     */
     @Test
     void findItemByColor() {
         Solution data = this.sampleData1();
@@ -38,15 +44,19 @@ public class SolutionTest {
         assertEquals(1, result.size());
         assertEquals("002", result.iterator().next().id());
     }
-        @Test
+
+    /**
+     * Find multiple cars using a condition
+     */
+    @Test
     void findItemByColorMulti() {
         Solution data = this.sampleData1();
 
         Set<Car> result = data.findByCondition(new Condition(Field.COLOR, "red"));
         assertEquals(2, result.size());
 
-        while (result.iterator().hasNext()) {
-            Car car = result.iterator().next();
+        System.out.println("here");
+        for (Car car : result) {
             assertEquals("red", car.color());
         }
     }
