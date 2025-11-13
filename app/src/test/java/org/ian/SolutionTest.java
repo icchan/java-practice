@@ -12,12 +12,12 @@ public class SolutionTest {
     private Solution sampleData1() {
         Solution solution = new Solution();
 
-        solution.addCar(new Car("001", "red", Category.COMPACT));
-        solution.addCar(new Car("002", "blue", Category.COMPACT));
-        solution.addCar(new Car("003", "green", Category.SEDAN));
-        solution.addCar(new Car("004", "red", Category.SUV));
-        solution.addCar(new Car("005", "black", Category.COUPE));
-        solution.addCar(new Car("006", "black", Category.COUPE));
+        solution.addCar(new Car("001", "red", "compact"));
+        solution.addCar(new Car("002", "blue", "compact"));
+        solution.addCar(new Car("003", "green", "sedan"));
+        solution.addCar(new Car("004", "red", "suv"));
+        solution.addCar(new Car("005", "black", "coupe"));
+        solution.addCar(new Car("006", "black", "coupe"));
         return solution;
     }
 
@@ -55,10 +55,44 @@ public class SolutionTest {
         Set<Car> result = data.findByCondition(new Condition(Field.COLOR, "red"));
         assertEquals(2, result.size());
 
-        System.out.println("here");
         for (Car car : result) {
             assertEquals("red", car.color());
         }
     }
 
+    @Test
+    void findItemByOr() {
+        Solution data = this.sampleData1();
+
+        // return blue or suv (expected 2 or 4)
+        Operation query = new Operation(
+                new Condition(Field.COLOR, "blue"),
+                new Condition(Field.CATEGORY, "suv"),
+                Operator.OR);
+
+        Set<Car> result = data.findByQuery(query);
+        assertEquals(2, result.size());
+
+        for (Car car : result) {
+            System.out.println(car.id());
+        }
+    }
+
+    @Test
+    void findItemByAnd() {
+        Solution data = this.sampleData1();
+
+        // return red and compact (expected 1)
+        Operation query = new Operation(
+                new Condition(Field.COLOR, "red"),
+                new Condition(Field.CATEGORY, "compact"),
+                Operator.AND);
+
+        Set<Car> result = data.findByQuery(query);
+        assertEquals(1, result.size());
+
+        for (Car car : result) {
+            System.out.println(car.id());
+        }
+    }
 }
