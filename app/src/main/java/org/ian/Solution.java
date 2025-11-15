@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is the solution
+ * This is a solution for searching items problem
  */
 public class Solution {
     private static final Logger log = LoggerFactory.getLogger(Solution.class);
@@ -32,8 +32,10 @@ public class Solution {
         Set<Car> categorySet = carsByCategory.computeIfAbsent(car.category(), key -> new HashSet<>());
         categorySet.add(car);
 
+        log.info("added a car {}", car.id());
     }
 
+    /// Find an item by a single condition
     public Set<Car> findByCondition(Condition condition) {
         if (condition.field() == Field.ID) {
             if (this.cars.containsKey(condition.value())) {
@@ -50,6 +52,7 @@ public class Solution {
         }
     }
 
+    /// Find items by a nested query
     public Set<Car> findByQuery(QueryNode query) {
         // if condition, then return findByCondition
         if (query instanceof Condition)
@@ -61,7 +64,7 @@ public class Solution {
         Set<Car> left = findByQuery(current.left());
         Set<Car> right = findByQuery(current.right());
 
-        // assume OR only here
+        // union for OR, intersect for AND
         if (current.op() == Operator.OR) {
             left.addAll(right);
         } else {
@@ -71,29 +74,30 @@ public class Solution {
 
         return left;
     }
-
 }
 
 // Data format here
-
 record Car(String id, String color, String category) {
 }
 
+// Enum for the property names
 enum Field {
     ID, COLOR, CATEGORY
 }
 
-enum Operator {
-    OR, AND
-}
-
-// Querying here
-
+// Potentially nested query
 interface QueryNode {
 }
 
+// A search condition
 record Condition(Field field, String value) implements QueryNode {
 }
 
+// A query operation to connect conditions
 record Operation(QueryNode left, QueryNode right, Operator op) implements QueryNode {
+}
+
+// An operator 
+enum Operator {
+    OR, AND
 }

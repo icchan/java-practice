@@ -28,9 +28,11 @@ public class SolutionTest {
     void findItem() {
         Solution data = this.sampleData1();
 
-        Set<Car> result = data.findByCondition(new Condition(Field.ID, "001"));
-        assertEquals(1, result.size());
-        assertEquals("red", result.iterator().next().color());
+        assertDoesNotThrow(() -> {
+            Set<Car> result = data.findByCondition(new Condition(Field.ID, "001"));
+            assertEquals(1, result.size());
+            assertEquals("red", result.iterator().next().color());
+        });
     }
 
     /**
@@ -94,5 +96,10 @@ public class SolutionTest {
         for (Car car : result) {
             System.out.println(car.id());
         }
+    }
+
+    @Test
+    void findItemByNestedQuery() {
+        //
     }
 }
