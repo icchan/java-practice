@@ -14,6 +14,5 @@ public class Solution {
      */
     public void run() {
         log.info("ran solution");
-
     }
 }
