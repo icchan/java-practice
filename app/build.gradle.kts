@@ -18,11 +18,12 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // This dependency is used by the application.
-    implementation(libs.guava)
+    // --- Mockito Dependencies (Testing ONLY) ---
+    testImplementation("org.mockito:mockito-core:5.18.0") 
+    testImplementation("org.mockito:mockito-junit-jupiter:5.18.0") //This allows you to use annotations like @Mock
+//    testImplementation("net.bytebuddy:byte-buddy:LATEST")
 
     // logging
     implementation("org.slf4j:slf4j-api:2.0.13")
@@ -33,7 +34,7 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -45,4 +46,9 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+
+    // Optional: Log the test execution to the console
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
