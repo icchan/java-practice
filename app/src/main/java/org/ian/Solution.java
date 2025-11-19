@@ -1,8 +1,12 @@
 package org.ian;
 
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.StructuredTaskScope;
+import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,17 +45,50 @@ public class Solution {
         }
     }
 
+    /// Basic virtual thread example Actually this is not recommended if you need to
+    /// return a value In that case please use useVThreadsBetter() instead
     public void tryVirtualThreads() {
+        CompletableFuture<String> futureResult = new CompletableFuture<>();
+
         // Create and start a virtual thread immediately
         var vThread = Thread.ofVirtual().start(() -> {
             log.info("running in a vthread");
+            sleep(100);
+
+            futureResult.complete("done");
         });
 
         try {
             vThread.join(); // wait for the vthread to finish
-        } catch (InterruptedException e) {
+
+            log.info("finished with result {}", futureResult.get());
+        } catch (InterruptedException | ExecutionException e) {
             log.error("interupted", e);
+            futureResult.completeExceptionally(e); // needed to ensure this thread doesnt hang forever
         }
+    }
+
+    public void useVThreadsBetter() {
+        
+        Supplier<String> dataSupplier = () -> {
+            log.info("Supplier running on thread: {}", Thread.currentThread().getName());
+            sleep(100);
+            return "The Calculated Data Result";
+        };
+
+        Supplier<Integer> intSupplier = () -> {
+            log.info("Supplier running on thread: {}", Thread.currentThread().getName());
+            sleep(50);
+            return 100;
+        };
+
+        // 2. Start the asynchronous task using vthread executor
+        ExecutorService virtualExecutor = Executors.newVirtualThreadPerTaskExecutor();
+        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(dataSupplier, virtualExecutor);
+        CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(intSupplier, virtualExecutor);
+
+        // wait for the result
+        CompletableFuture.allOf(future1, future2);
     }
 
     /// Start multiple vthreads and wait for all to finish
