@@ -32,11 +32,10 @@ public class DesignValidators {
     }
 
     static class DesignUpdaterImpl implements DesignUpdater {
-        public Design currentDesign = new Design(1000, 1000, List.of());
+        public Design currentDesign = new Design(100, 100, List.of());
 
         @Override
         public boolean replaceWith(Design newDesign) {
-            currentDesign = newDesign;
 
             Set<String> elementIds = new HashSet<>();
 
