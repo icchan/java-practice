@@ -5,15 +5,29 @@ package org.ian;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.HashSet;
+import java.util.Set;
 
 public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
     public static void main(String[] args) {
         log.info("running main...");
-        // solve problem here
-        Solution solution = new Solution();
+        // Read command-line arguments as integers and add to a set
+        Set<Integer> numberSet = new HashSet<>();
+        for (String arg : args) {
+            try {
+                int num = Integer.parseInt(arg);
+                numberSet.add(num);
+            } catch (NumberFormatException e) {
+                System.err.println("Argument '" + arg + "' is not a valid integer.");
+                return;
+            }
+        }
+        // Print the set of integers
+        System.out.println("Read integers (set): " + numberSet);
 
-        solution.run();
+        Solution solution = new Solution();
+        solution.run(numberSet);
 
     }
 

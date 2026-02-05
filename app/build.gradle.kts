@@ -15,6 +15,8 @@ repositories {
     mavenCentral()
 }
 
+val mockitoAgent = configurations.create("mockitoAgent")
+
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
@@ -23,6 +25,7 @@ dependencies {
     // --- Mockito Dependencies (Testing ONLY) ---
     testImplementation("org.mockito:mockito-core:5.18.0") 
     testImplementation("org.mockito:mockito-junit-jupiter:5.18.0") //This allows you to use annotations like @Mock
+    mockitoAgent("org.mockito:mockito-core:5.18.0") { isTransitive = false }
 
     // logging
     implementation("org.slf4j:slf4j-api:2.0.13")
@@ -51,3 +54,10 @@ tasks.named<Test>("test") {
         events("passed", "skipped", "failed")
     }
 }
+
+tasks {
+    test {
+        jvmArgs.add("-javaagent:${mockitoAgent.asPath}")
+    }
+}
+ 
