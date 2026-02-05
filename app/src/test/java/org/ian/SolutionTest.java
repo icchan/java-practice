@@ -27,16 +27,35 @@ public class SolutionTest {
     void run() {
         Solution solution = new Solution();
 
-        // create an empty set
-        Set<Integer> set = new HashSet<>(Set.of(1, 2, 3, 4));
+// # Input: [2.0, 2.5, 1.8, 3.2, 3.8, 2.7] → Output: 2.0
+// # Input: [3.0, 2.9, 2.8, 2.7] → Output: 0.0
+// # Input: [1.5, 2.5] → Output: 1.0
 
-        // add elements to the set
-        set.add(5); 
-        set.add(4); // duplicate, will not be added
-        set.add(3); // duplicate, will not be added
+// # Your previous Markdown content is preserved below:
 
-        // check it does not throw an exception
-        assertDoesNotThrow(() -> solution.run(set));
+// # # Easygo Engineering Interview Question - Max Profit
+// # ## Finding Maximum Profit
+// # Suppose you have access to the odds of a specific betting event over time yesterday, represented as a list:
+
+// # * The indices are the time in minutes past the event's odds opening time.
+// # * The values are the decimal odds of the event at that time.
+
+// # For example, given an event that starts at 10:00 am, if the odds were 3.0 at 12:30 pm then `odds_yesterday[150] = 3.0`
+
+// # Write an efficient function that takes an array of decimal odds and returns the maximum profit you could have made by placing a single bet at one time and cashing out at a later time when the odds were higher.
+
+// # * You must place the bet before cashing out
+// # * At least 1 minute must pass between placing and cashing out a bet
+// # * Profit is calculated as `(cash_out_odds - bet_odds) * bet_amount`, assuming a bet of $1.
+
+// # Example:
+
+// # ```
+// # odds_yesterday = [2.0, 2.5, 1.8, 3.2, 3.8, 2.7]
+
+// # get_max_profit(odds_yesterday)
+// # // returns 2.0 (placing a bet at odds 1.8 and cashing out at odds 3.8)
+// # ```
 
 
         List<TestCase> testCases = List.of(
