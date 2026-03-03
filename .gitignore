@@ -11,3 +11,5 @@ app/bin
 # Logs
 app/logs
 logs
+.DS_Store
+*.log

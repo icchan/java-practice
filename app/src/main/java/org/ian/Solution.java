@@ -12,7 +12,11 @@ public class Solution {
     /**
      * Runs the solution
      */
-    public void run() {
+    public void run(int[] data) {
         log.info("ran solution");
+
+        for (int i : data) {
+            log.info("data: {}", i);
+        }
     }
 }

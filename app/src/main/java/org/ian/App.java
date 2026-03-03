@@ -13,7 +13,17 @@ public class App {
         // solve problem here
         Solution solution = new Solution();
 
-        solution.run();
+        int[] data = new int[args.length];
+        for (int i = 0; i < args.length; i++) {
+            try {
+                data[i] = Integer.parseInt(args[i]);
+            } catch (NumberFormatException e) {
+                log.error("Invalid integer argument '{}' at position {}", args[i], i);
+                return;
+            }
+        }
+
+        solution.run(data);
 
     }
 

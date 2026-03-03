@@ -12,8 +12,12 @@ public class SolutionTest {
     void run() {
         Solution solution = new Solution();
 
+        // test data, list of integers
+        int[] testData = {1, 2, 3, 4, 5};
+
         // check it does not throw an exception
-        assertDoesNotThrow(() -> solution.run());
+        assertDoesNotThrow(() -> solution.run(testData));
+
     }
 
 }
