@@ -25,7 +25,7 @@ public class App {
 
         int[][] matrix = {data};
 
-        solution.run(matrix);
+        //solution.run(matrix);
 
     }
 

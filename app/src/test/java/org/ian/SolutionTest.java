@@ -9,27 +9,40 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import java.util.List;
+
 
 @ExtendWith(MockitoExtension.class)
 public class SolutionTest {
 
+    
     @ParameterizedTest
     @MethodSource("testCases")
-    void run(int[][] input, boolean expected) {
+    void run(int[][] input, int tileSize, int expected) {
         Solution solution = new Solution();
-        assertEquals(expected, solution.run(input));
+
+        List<Solution.Tile> tiles= solution.generateTiles(input, tileSize);
+        assertEquals(expected, tiles.size());
     }
 
     static Stream<Arguments> testCases() {
         return Stream.of(
-            Arguments.of(new int[16][16], true),
-            Arguments.of(new int[][]{}, false),
-            Arguments.of((int[][]) null, false),
-            Arguments.of(new int[][]{
-                {1, 2, 3, 4, 5},
-                {11, 12, 13, 14, 15},
-            }, true),
-            Arguments.of(sampleImage, true)
+            // Arguments.of(new int[16][16], true),
+            // Arguments.of(new int[][]{}, false),
+            // Arguments.of((int[][]) null, false),
+            // Arguments.of(new int[][]{
+            //     {1, 2, 3, 4, 5},
+            //     {11, 12, 13, 14, 15},
+            // }, true),
+            Arguments.of(sampleImage, 4, 16),
+            Arguments.of(
+                new int[][]{
+                    {1,2,3,4},
+                    {5,6,7,8},
+                    {9,10,11,12},
+                    {13,14,15,16},
+                }, 2, 4
+            )
         );
     }
 
