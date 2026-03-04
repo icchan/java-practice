@@ -12,11 +12,11 @@ public class Solution {
     /**
      * Runs the solution
      */
-    public void run(int[] data) {
+    public boolean run(int[][] data) {
         log.info("ran solution");
+        if (data == null || data.length == 0) return false;
 
-        for (int i : data) {
-            log.info("data: {}", i);
-        }
+        log.info("data: {}", data.length);
+        return true;
     }
 }
